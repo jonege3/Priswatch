@@ -53,7 +53,9 @@ export default function App() {
 
   async function addProduct(categoryId, url) {
     const product = await post('/products', { category_id: categoryId, url })
-    setProducts(prev => [...prev, product])
+    // Reload full product list so 30d stats and all fields are populated correctly
+    const prods = await get('/products')
+    setProducts(prods)
     setCategories(prev => prev.map(c => c.id === categoryId ? { ...c, product_count: c.product_count + 1 } : c))
     return product
   }
