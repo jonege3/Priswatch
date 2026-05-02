@@ -1,0 +1,148 @@
+.row {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 0.5px solid var(--border);
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.row:last-child { border-bottom: none; }
+.row:hover, .row.expanded { background: var(--surface2); }
+
+.imgWrap {
+  width: 40px; height: 40px; border-radius: 6px; overflow: hidden;
+  background: var(--surface2); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.img { width: 100%; height: 100%; object-fit: contain; }
+.imgPlaceholder { width: 100%; height: 100%; background: var(--surface2); }
+
+.info { overflow: hidden; }
+.name { font-size: 13px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.shop { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+.right { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; flex-shrink: 0; }
+.price { font-family: var(--font-mono); font-size: 15px; font-weight: 700; color: var(--text); white-space: nowrap; }
+.high30 { font-size: 10px; color: var(--text3); white-space: nowrap; }
+
+.badge { font-size: 11px; padding: 2px 8px; border-radius: 99px; font-weight: 500; white-space: nowrap; }
+.drop { background: var(--green-bg); color: var(--green); }
+.up   { background: var(--red-bg);   color: var(--red); }
+.flat { background: var(--surface2); color: var(--text3); }
+
+/* ── Detail panel ── */
+.detail { padding: 14px; border-bottom: 0.5px solid var(--border); background: var(--surface2); }
+
+.detailTop { display: flex; gap: 14px; margin-bottom: 14px; align-items: flex-start; }
+.detailImg { width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: var(--surface); flex-shrink: 0; }
+
+.detailStats { display: flex; gap: 20px; flex-wrap: wrap; }
+.dstat { display: flex; flex-direction: column; gap: 2px; }
+.dstatLabel { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; }
+.dstatVal { font-family: var(--font-mono); font-size: 15px; font-weight: 700; color: var(--text); }
+.green { color: var(--green); }
+.red   { color: var(--red); }
+
+/* ── Chart area ── */
+.chartArea { background: var(--surface); border-radius: var(--radius); border: 0.5px solid var(--border); margin-bottom: 12px; overflow: hidden; }
+
+.rangeBar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 10px;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.rangeBtn {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--text3);
+  cursor: pointer;
+  transition: all 0.1s;
+  font-family: var(--font-sans);
+}
+.rangeBtn:hover { background: var(--surface2); color: var(--text); }
+.rangeActive { background: var(--text) !important; color: var(--bg) !important; }
+.rangeDisabled { opacity: 0.3; cursor: default; }
+
+.rangePts {
+  font-size: 10px;
+  color: var(--text3);
+  margin-left: auto;
+}
+
+.chartWrap { width: 100%; height: 200px; padding: 4px 0; }
+.chartMsg {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  height: 100%; font-size: 12px; color: var(--text3); text-align: center; padding: 0 2rem;
+}
+
+/* ── Actions ── */
+.detailActions { display: flex; gap: 8px; }
+.btnLink {
+  font-size: 12px; padding: 5px 12px; border-radius: var(--radius);
+  border: 0.5px solid var(--border2); background: transparent; color: var(--blue);
+}
+.btnLink:hover { background: var(--blue-bg); }
+.btnDelete {
+  font-size: 12px; padding: 5px 12px; border-radius: var(--radius);
+  border: 0.5px solid transparent; background: transparent; color: var(--text3);
+}
+.btnDelete:hover { color: var(--red); border-color: var(--red); background: var(--red-bg); }
+
+/* ── Tooltip ── */
+.tooltip {
+  background: var(--surface); border: 0.5px solid var(--border2);
+  border-radius: var(--radius); padding: 6px 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.tooltipPrice { font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--text); }
+.tooltipDate  { font-size: 11px; color: var(--text3); margin-top: 1px; }
+.tooltipShop  { font-size: 10px; color: var(--text3); margin-top: 2px; }
+
+.moveSelect {
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border2);
+  background: transparent;
+  color: var(--text2);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  outline: none;
+}
+.moveSelect:hover { border-color: var(--text3); }
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  .row { grid-template-columns: 36px 1fr auto; gap: 8px; padding: 9px 12px; }
+  .imgWrap { width: 36px; height: 36px; }
+  .name { font-size: 12px; }
+  .shop { font-size: 10px; }
+  .price { font-size: 13px; }
+  .high30 { display: none; }
+  .badge { font-size: 10px; padding: 2px 6px; }
+
+  /* Detail panel */
+  .detail { padding: 12px; }
+  .detailTop { flex-direction: column; gap: 10px; }
+  .detailImg { width: 60px; height: 60px; }
+  .detailStats { gap: 12px; }
+  .dstatVal { font-size: 13px; }
+
+  /* Range bar */
+  .rangeBar { padding: 6px 8px; }
+  .rangeBtn { padding: 3px 8px; font-size: 11px; }
+
+  /* Actions */
+  .detailActions { flex-wrap: wrap; gap: 6px; }
+  .btnLink, .btnDelete, .moveSelect { font-size: 11px; padding: 5px 8px; }
+  .moveSelect { width: 100%; }
+}

@@ -1,0 +1,186 @@
+.cat {
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.1s;
+}
+
+.header:hover { background: var(--surface2); }
+
+.arrow {
+  font-size: 9px;
+  color: var(--text3);
+  transition: transform 0.18s;
+  width: 12px;
+  flex-shrink: 0;
+}
+.arrow.open { transform: rotate(90deg); }
+
+.name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  flex: 1;
+}
+
+.pills { display: flex; gap: 5px; align-items: center; }
+
+.pillTotal {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: var(--surface2);
+  color: var(--text2);
+}
+.pillSale {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: var(--green-bg);
+  color: var(--green);
+  font-weight: 500;
+}
+.pillDrop {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: var(--green-bg);
+  color: var(--green);
+  font-weight: 500;
+}
+
+.catActions { display: flex; gap: 4px; margin-left: 6px; }
+
+.addBtn {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border2);
+  background: transparent;
+  color: var(--text2);
+}
+.addBtn:hover { background: var(--surface2); }
+
+.delBtn {
+  font-size: 16px;
+  padding: 2px 7px;
+  border-radius: var(--radius);
+  border: 0.5px solid transparent;
+  background: transparent;
+  color: var(--text3);
+  line-height: 1;
+}
+.delBtn:hover { color: var(--red); border-color: var(--red); background: var(--red-bg); }
+
+.body { border-top: 0.5px solid var(--border); }
+
+.addForm {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 14px;
+  border-bottom: 0.5px solid var(--border);
+  flex-wrap: wrap;
+  background: var(--surface2);
+}
+
+.input {
+  flex: 1;
+  min-width: 200px;
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border2);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 13px;
+  outline: none;
+}
+.input:focus { border-color: var(--text3); }
+
+.btnPrimary {
+  padding: 6px 14px;
+  border-radius: var(--radius);
+  background: var(--text);
+  color: var(--bg);
+  font-size: 13px;
+  border: none;
+}
+.btnPrimary:disabled { opacity: 0.5; }
+
+.btnSecondary {
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text2);
+  font-size: 13px;
+  border: 0.5px solid var(--border2);
+}
+
+.addError { font-size: 12px; color: var(--red); width: 100%; }
+
+.emptyBody {
+  padding: 16px 14px;
+  font-size: 13px;
+  color: var(--text3);
+}
+
+.inlineLink {
+  background: none;
+  border: none;
+  color: var(--blue);
+  font-size: 13px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.pillUp {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: var(--red-bg);
+  color: var(--red);
+  font-weight: 500;
+}
+
+.addMsg {
+  padding: 8px 14px;
+  font-size: 12px;
+  color: var(--green);
+  background: var(--green-bg);
+  border-bottom: 0.5px solid var(--border);
+}
+
+.folderIcon {
+  width: 16px;
+  height: 16px;
+  color: var(--text3);
+  flex-shrink: 0;
+  transition: color 0.1s;
+}
+
+.header:hover .folderIcon {
+  color: var(--text2);
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  .header { padding: 10px 12px; gap: 7px; }
+  .name { font-size: 13px; }
+  .pills { gap: 4px; }
+  .catActions { gap: 3px; }
+  .addBtn { font-size: 11px; padding: 3px 8px; }
+
+  .addForm { padding: 8px 12px; gap: 6px; }
+  .input { min-width: unset; width: 100%; }
+  .btnPrimary, .btnSecondary { padding: 6px 10px; font-size: 12px; }
+}

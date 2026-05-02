@@ -1,0 +1,14 @@
+services:
+  prisvakt:
+    build: .
+    container_name: prisvakt
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    volumes:
+      # Persists the SQLite database outside the container
+      - ./data:/data
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - DB_PATH=/data/prisvakt.db

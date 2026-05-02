@@ -1,0 +1,252 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 1rem;
+}
+
+.modal {
+  background: var(--surface);
+  border: 0.5px solid var(--border2);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 560px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16px 18px 12px;
+  border-bottom: 0.5px solid var(--border);
+  flex-shrink: 0;
+}
+
+.modalTitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.modalSub {
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 2px;
+}
+
+.closeBtn {
+  font-size: 20px;
+  color: var(--text3);
+  background: none;
+  border: none;
+  padding: 0 4px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.closeBtn:hover { color: var(--text); }
+
+/* ── Paste step ── */
+.pasteStep {
+  padding: 14px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border2);
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 12px;
+  font-family: var(--font-mono);
+  line-height: 1.6;
+  resize: vertical;
+  outline: none;
+}
+.textarea:focus { border-color: var(--text3); }
+
+.pasteActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Assign step ── */
+.assignStep {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex: 1;
+}
+
+.applyAll {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-bottom: 0.5px solid var(--border);
+  background: var(--surface2);
+  flex-shrink: 0;
+}
+
+.applyAllLabel {
+  font-size: 12px;
+  color: var(--text2);
+  white-space: nowrap;
+}
+
+.itemList {
+  overflow-y: auto;
+  flex: 1;
+  padding: 6px 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-bottom: 0.5px solid var(--border);
+  transition: background 0.1s;
+}
+.item:last-child { border-bottom: none; }
+.item.done    { background: var(--green-bg); }
+.item.error   { background: var(--red-bg); }
+.item.exists  { background: var(--surface2); }
+.item.invalid { opacity: 0.5; }
+
+.itemInfo { flex: 1; overflow: hidden; }
+
+.itemUrl {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.itemMsg {
+  font-size: 10px;
+  color: var(--text3);
+  margin-top: 2px;
+}
+
+.catSelect {
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border2);
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  outline: none;
+  max-width: 140px;
+  flex-shrink: 0;
+}
+
+.removeBtn {
+  font-size: 16px;
+  color: var(--text3);
+  background: none;
+  border: none;
+  padding: 0 4px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.removeBtn:hover { color: var(--red); }
+
+.statusBadge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.badgeLoading { background: var(--surface2); color: var(--text3); }
+.badge_done   { background: var(--green-bg); color: var(--green); }
+.badge_error  { background: var(--red-bg);   color: var(--red); }
+.badge_exists { background: var(--surface2); color: var(--text3); }
+.badgeError   { background: var(--red-bg);   color: var(--red); }
+
+/* ── Progress bar ── */
+.progressWrap {
+  height: 2px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+.progressBar {
+  height: 100%;
+  background: var(--green);
+  transition: width 0.3s ease;
+}
+
+/* ── Footer ── */
+.assignActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border-top: 0.5px solid var(--border);
+  flex-shrink: 0;
+}
+
+.urlCount {
+  font-size: 12px;
+  color: var(--text3);
+  margin-right: auto;
+}
+
+/* ── Shared buttons ── */
+.btnPrimary {
+  padding: 7px 16px;
+  border-radius: var(--radius);
+  background: var(--text);
+  color: var(--bg);
+  font-size: 13px;
+  border: none;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btnPrimary:disabled { opacity: 0.4; cursor: default; }
+.btnPrimary:not(:disabled):hover { opacity: 0.85; }
+
+.btnSecondary {
+  padding: 7px 14px;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text2);
+  font-size: 13px;
+  border: 0.5px solid var(--border2);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btnSecondary:hover { background: var(--surface2); }
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  .overlay { padding: 0; align-items: flex-end; }
+  .modal { max-width: 100%; max-height: 92vh; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+  .item { flex-wrap: wrap; gap: 6px; }
+  .catSelect { width: 100%; max-width: unset; }
+  .itemUrl { font-size: 10px; }
+  .assignActions { flex-wrap: wrap; }
+  .btnPrimary, .btnSecondary { flex: 1; text-align: center; }
+}
