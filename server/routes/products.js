@@ -91,3 +91,21 @@ router.patch('/:id', (req, res) => {
   run('UPDATE products SET category_id = ? WHERE id = ?', [category_id, req.params.id])
   res.json({ ok: true })
 })
+
+// GET /api/products/preview?url=... — fetch name+image for a URL without saving
+router.get('/preview', async (req, res) => {
+  const { url } = req.query
+  if (!url) return res.status(400).json({ error: 'url required' })
+  try {
+    const { scrapeProduct } = require('../scraper')
+    const result = await scrapeProduct(url)
+    res.json({
+      name:      result?.name || null,
+      image_url: result?.imageUrl || null,
+      price:     result?.price || null,
+      shop:      result?.shop || null,
+    })
+  } catch (e) {
+    res.status(500).json({ error: e.message })
+  }
+})
