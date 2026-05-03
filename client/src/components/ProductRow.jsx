@@ -121,10 +121,12 @@ export default function ProductRow({ product, onDelete, onMoved, categories = []
         </div>
         <div className={styles.right}>
           <div className={styles.price}>{nok(product.current_price)}</div>
-          {product.price_prev_scrape && product.price_prev_scrape !== product.current_price && (
-            <div className={`${styles.prevPrice} ${product.current_price < product.price_prev_scrape ? styles.prevDown : styles.prevUp}`}>
-              was {nok(product.price_prev_scrape)} {product.current_price < product.price_prev_scrape ? '↓' : '↑'}
+          {product.price_last_different ? (
+            <div className={`${styles.prevPrice} ${product.current_price < product.price_last_different ? styles.prevDown : styles.prevUp}`}>
+              prev {nok(product.price_last_different)} {product.current_price < product.price_last_different ? '↓' : '↑'}
             </div>
+          ) : (
+            <div className={styles.prevPrice} style={{color:'var(--text3)'}}>stable</div>
           )}
           {product.price_all_time_low && product.current_price <= product.price_all_time_low * 1.05 && (
             <div className={`${styles.high30} ${styles.green}`}>Near all-time low</div>
