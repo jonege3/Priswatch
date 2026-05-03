@@ -146,3 +146,10 @@
   .btnLink, .btnDelete, .moveSelect { font-size: 11px; padding: 5px 8px; }
   .moveSelect { width: 100%; }
 }
+
+.prevPrice {
+  font-size: 10px;
+  white-space: nowrap;
+}
+.prevDown { color: var(--green); }
+.prevUp   { color: var(--red); }

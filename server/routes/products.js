@@ -12,6 +12,9 @@ router.get('/', (req, res) => {
        WHERE product_id = p.id
        AND scraped_at <= datetime('now', '-7 days')
        ORDER BY scraped_at DESC LIMIT 1) AS price_7d_ago,
+      (SELECT price FROM price_history
+       WHERE product_id = p.id
+       ORDER BY scraped_at DESC LIMIT 1 OFFSET 1) AS price_prev_scrape,
       (SELECT MIN(price) FROM price_history
        WHERE product_id = p.id) AS price_all_time_low,
       (SELECT MAX(price) FROM price_history
