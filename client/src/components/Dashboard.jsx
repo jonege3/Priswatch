@@ -51,7 +51,7 @@ export default function Dashboard({
   const [search, setSearch]         = useState('')
   const [newCatName, setNewCatName] = useState('')
   const [addingCat, setAddingCat]   = useState(false)
-  const [expandAll, setExpandAll]   = useState(false)
+  const [expandAll, setExpandAll]   = useState(true)
   const [bulkOpen, setBulkOpen]       = useState(false)
 
   const nok = n => n != null ? Number(n).toLocaleString('nb-NO') + ' kr' : '—'

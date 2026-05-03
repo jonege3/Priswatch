@@ -53,13 +53,13 @@ async function fetchPrisjaktHistory(productId) {
         }),
       });
 
-      console.log(`[scraper \${ts()}] price-history API (${timeRange}): HTTP ${res.status}`);
+      console.log(`[scraper ${ts()}] price-history API (${timeRange}): HTTP ${res.status}`);
       if (!res.ok) continue;
 
       const json = await res.json();
       const items = json?.enrichedPriceHistory?.historyItems;
       if (!Array.isArray(items) || items.length === 0) {
-        console.log(`[scraper \${ts()}] No items in response for timeRange ${timeRange}`);
+        console.log(`[scraper ${ts()}] No items in response for timeRange ${timeRange}`);
         continue;
       }
 
@@ -77,10 +77,10 @@ async function fetchPrisjaktHistory(productId) {
       const history = Object.values(byDay)
         .sort((a, b) => new Date(a.date) - new Date(b.date));
 
-      console.log(`[scraper \${ts()}] Got ${history.length} days of history (${timeRange})`);
+      console.log(`[scraper ${ts()}] Got ${history.length} days of history (${timeRange})`);
       return history; // success — return immediately
     } catch (err) {
-      console.log(`[scraper \${ts()}] price-history error (${timeRange}): ${err.message}`);
+      console.log(`[scraper ${ts()}] price-history error (${timeRange}): ${err.message}`);
     }
   }
 
@@ -134,7 +134,7 @@ async function scrapeProduct(url) {
     }
 
     const productId = extractPrisjaktId(url);
-    console.log(`[scraper \${ts()}] Product ID: ${productId}`);
+    console.log(`[scraper ${ts()}] Product ID: ${productId}`);
     const prisjaktHistory = await fetchPrisjaktHistory(productId);
 
     // Use shop from the most recent history entry — much more reliable than JSON-LD
@@ -146,7 +146,7 @@ async function scrapeProduct(url) {
 
     return { name: name || 'Unknown product', price, shop, imageUrl, prisjaktHistory };
   } catch (err) {
-    console.error(`[scraper \${ts()}] Failed ${url}: ${err.message}`);
+    console.error(`[scraper ${ts()}] Failed ${url}: ${err.message}`);
     return null;
   }
 }
@@ -163,14 +163,14 @@ function importPrisjaktHistory(productId, history) {
       imported++;
     } catch (_) {}
   }
-  console.log(`[scraper \${ts()}] Imported ${imported}/${history.length} historical data points into DB`);
+  console.log(`[scraper ${ts()}] Imported ${imported}/${history.length} historical data points into DB`);
   return imported;
 }
 
 async function scrapeAll() {
   const products = all('SELECT id, name, url FROM products');
   if (!products.length) { console.log('[scraper] No products to scrape'); return; }
-  console.log(`[scraper \${ts()}] Scraping ${products.length} products...`);
+  console.log(`[scraper ${ts()}] Scraping ${products.length} products...`);
 
   for (const product of products) {
     const result = await scrapeProduct(product.url);
@@ -181,9 +181,9 @@ async function scrapeAll() {
       );
       run('INSERT INTO price_history (product_id, price, shop) VALUES (?, ?, ?)',
         [product.id, result.price, result.shop]);
-      console.log(`[scraper \${ts()}] ${product.name}: ${result.price} kr (${result.shop || '?'})`);
+      console.log(`[scraper ${ts()}] ${product.name}: ${result.price} kr (${result.shop || '?'})`);
     } else {
-      console.warn(`[scraper \${ts()}] No price for "${product.name}"`);
+      console.warn(`[scraper ${ts()}] No price for "${product.name}"`);
     }
     await new Promise(r => setTimeout(r, 1500 + Math.random() * 1500));
   }
