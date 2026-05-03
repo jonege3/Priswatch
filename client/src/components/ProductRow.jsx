@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts'
 import { get, patch } from '../hooks/api.js'
-import { getStatus } from '../App.jsx'
+import { getStatus, THRESHOLD } from '../App.jsx'
 import styles from './ProductRow.module.css'
 
 const nok = n => n != null ? Number(n).toLocaleString('nb-NO') + ' kr' : '—'
@@ -15,18 +15,17 @@ const RANGES = [
 
 function getBadge(product) {
   const status = getStatus(product)
-  const cur  = product.current_price
-  const high = product.price_30d_high
+  const cur = product.current_price
+  const ago = product.price_7d_ago
   if (status === 'drop') {
-    const pct    = (((high - cur) / high) * 100).toFixed(0)
-    const saving = high - cur
-    return { label: `↓ ${pct}% (${nok(saving)} off)`, cls: 'drop', saving }
+    const pct = (((ago - cur) / ago) * 100).toFixed(0)
+    return { label: `↓ ${pct}% this week`, cls: 'drop' }
   }
   if (status === 'up') {
-    const pct = (((cur - high) / high) * 100).toFixed(1)
-    return { label: `↑ ${pct}% vs 30d`, cls: 'up', saving: 0 }
+    const pct = (((cur - ago) / ago) * 100).toFixed(0)
+    return { label: `↑ ${pct}% this week`, cls: 'up' }
   }
-  return { label: 'Stable', cls: 'flat', saving: 0 }
+  return { label: 'Stable', cls: 'flat' }
 }
 
 function CustomTooltip({ active, payload }) {
@@ -49,7 +48,7 @@ export default function ProductRow({ product, onDelete, onMoved, categories = []
   const [moving, setMoving]                 = useState(false)
   const [rangeIdx, setRangeIdx]             = useState(0) // default 3M
 
-  const { label, cls, saving } = getBadge(product)
+  const { label, cls } = getBadge(product)
 
   async function handleMove(newCategoryId) {
     if (!newCategoryId || newCategoryId == product.category_id) return
@@ -122,8 +121,8 @@ export default function ProductRow({ product, onDelete, onMoved, categories = []
         </div>
         <div className={styles.right}>
           <div className={styles.price}>{nok(product.current_price)}</div>
-          {product.price_30d_high && product.price_30d_high !== product.current_price && (
-            <div className={styles.high30}>30d high: {nok(product.price_30d_high)}</div>
+          {product.price_all_time_low && product.current_price <= product.price_all_time_low * 1.05 && (
+            <div className={`${styles.high30} ${styles.green}`}>Near all-time low</div>
           )}
           <span className={`${styles.badge} ${styles[cls]}`}>{label}</span>
         </div>
@@ -139,7 +138,6 @@ export default function ProductRow({ product, onDelete, onMoved, categories = []
               <div className={styles.dstat}><div className={styles.dstatLabel}>Current</div><div className={styles.dstatVal}>{nok(product.current_price)}</div></div>
               <div className={styles.dstat}><div className={styles.dstatLabel}>30d high</div><div className={`${styles.dstatVal} ${styles.red}`}>{nok(product.price_30d_high)}</div></div>
               <div className={styles.dstat}><div className={styles.dstatLabel}>30d low</div><div className={`${styles.dstatVal} ${styles.green}`}>{nok(product.price_30d_low)}</div></div>
-              {saving > 0 && <div className={styles.dstat}><div className={styles.dstatLabel}>You save</div><div className={`${styles.dstatVal} ${styles.green}`}>{nok(saving)}</div></div>}
               {lo != null && <div className={styles.dstat}><div className={styles.dstatLabel}>Period low</div><div className={`${styles.dstatVal} ${styles.green}`}>{nok(lo)}</div></div>}
               {avg != null && <div className={styles.dstat}><div className={styles.dstatLabel}>Period avg</div><div className={styles.dstatVal}>{nok(avg)}</div></div>}
             </div>

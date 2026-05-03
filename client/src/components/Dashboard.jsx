@@ -18,14 +18,14 @@ function sortProducts(products, sort) {
   switch (sort) {
     case 'drop':
       return arr.sort((a, b) => {
-        const pa = a.price_30d_high ? (a.price_30d_high - a.current_price) / a.price_30d_high : -1
-        const pb = b.price_30d_high ? (b.price_30d_high - b.current_price) / b.price_30d_high : -1
+        const pa = a.price_7d_ago ? (a.price_7d_ago - a.current_price) / a.price_7d_ago : -1
+        const pb = b.price_7d_ago ? (b.price_7d_ago - b.current_price) / b.price_7d_ago : -1
         return pb - pa
       })
     case 'saving':
       return arr.sort((a, b) => {
-        const sa = (a.price_30d_high || 0) - (a.current_price || 0)
-        const sb = (b.price_30d_high || 0) - (b.current_price || 0)
+        const sa = (a.price_7d_ago || 0) - (a.current_price || 0)
+        const sb = (b.price_7d_ago || 0) - (b.current_price || 0)
         return sb - sa
       })
     case 'price_lo':
@@ -58,8 +58,9 @@ export default function Dashboard({
 
   const drops    = products.filter(p => getStatus(p) === 'drop')
   const ups      = products.filter(p => getStatus(p) === 'up')
+  const atl      = products.filter(p => p.price_all_time_low && p.current_price <= p.price_all_time_low * 1.05)
   const bestDrop = drops.reduce((best, p) => {
-    const saving = (p.price_30d_high || 0) - (p.current_price || 0)
+    const saving = (p.price_7d_ago || 0) - (p.current_price || 0)
     return saving > best ? saving : best
   }, 0)
 
@@ -143,8 +144,8 @@ export default function Dashboard({
           <div className={`${styles.statVal} ${styles.red}`}>{ups.length}</div>
         </div>
         <div className={styles.stat}>
-          <div className={styles.statLabel}>Best drop</div>
-          <div className={`${styles.statVal} ${styles.green}`}>{bestDrop > 0 ? nok(bestDrop) : '—'}</div>
+          <div className={styles.statLabel}>Near all-time low</div>
+          <div className={`${styles.statVal} ${styles.green}`}>{atl.length > 0 ? atl.length : '—'}</div>
         </div>
       </div>
 

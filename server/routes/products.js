@@ -8,15 +8,23 @@ router.get('/', (req, res) => {
   const { category_id } = req.query;
   let sql = `
     SELECT p.*,
-      (SELECT MAX(price) FROM price_history
+      (SELECT price FROM price_history
        WHERE product_id = p.id
-       AND scraped_at >= datetime('now', '-30 days')) AS price_30d_high,
+       AND scraped_at <= datetime('now', '-7 days')
+       ORDER BY scraped_at DESC LIMIT 1) AS price_7d_ago,
+      (SELECT MIN(price) FROM price_history
+       WHERE product_id = p.id) AS price_all_time_low,
+      (SELECT MAX(price) FROM price_history
+       WHERE product_id = p.id) AS price_all_time_high,
+      (SELECT ROUND(AVG(price)) FROM price_history
+       WHERE product_id = p.id
+       AND scraped_at >= datetime('now', '-90 days')) AS price_90d_avg,
       (SELECT MIN(price) FROM price_history
        WHERE product_id = p.id
        AND scraped_at >= datetime('now', '-30 days')) AS price_30d_low,
-      (SELECT price FROM price_history
+      (SELECT MAX(price) FROM price_history
        WHERE product_id = p.id
-       ORDER BY scraped_at ASC LIMIT 1) AS price_first
+       AND scraped_at >= datetime('now', '-30 days')) AS price_30d_high
     FROM products p
   `;
   const params = [];

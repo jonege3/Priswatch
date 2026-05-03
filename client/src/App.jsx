@@ -2,17 +2,17 @@ import { useState, useEffect, useCallback } from 'react'
 import Dashboard from './components/Dashboard.jsx'
 import { get, post, del } from './hooks/api.js'
 
-// A product counts as a "price drop" if current price is at least 3% below
-// the 30-day high. This uses our own scraped history, not Prisjakt's marketing.
-export const DROP_THRESHOLD = 0.03
+// Compare current price to price 7 days ago — what's happening RIGHT NOW
+// Threshold: 2% move is meaningful, less than that is noise
+export const THRESHOLD = 0.02
 
 export function getStatus(product) {
   const cur  = product.current_price
-  const high = product.price_30d_high
-  if (!cur || !high) return 'flat'
-  const dropPct = (high - cur) / high
-  if (dropPct >= DROP_THRESHOLD) return 'drop'
-  if (cur > high) return 'up'   // shouldn't happen often but covers edge case
+  const ago  = product.price_7d_ago
+  if (!cur || !ago) return 'flat'
+  const change = (ago - cur) / ago
+  if (change >= THRESHOLD)  return 'drop' // cheaper than 7 days ago
+  if (change <= -THRESHOLD) return 'up'   // more expensive than 7 days ago
   return 'flat'
 }
 
