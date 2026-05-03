@@ -25,8 +25,9 @@ async function start() {
   await initDb();
   startScheduler();
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`\n🔍 Prisvakt running at http://localhost:${PORT}`);
-    console.log('   Scheduler active — scrapes every 4 hours\n');
+    const now = new Date().toLocaleString('nb-NO');
+    console.log(`\n🔍 Priswatch started at ${now}`);
+    console.log(`   Running at http://localhost:${PORT}\n`);
   });
 }
 
