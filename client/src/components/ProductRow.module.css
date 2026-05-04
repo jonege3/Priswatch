@@ -153,3 +153,10 @@
 }
 .prevDown { color: var(--green); }
 .prevUp   { color: var(--red); }
+
+.atl {
+  font-size: 10px;
+  white-space: nowrap;
+  color: var(--amber);
+  font-weight: 500;
+}

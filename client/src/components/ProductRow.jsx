@@ -129,7 +129,7 @@ export default function ProductRow({ product, onDelete, onMoved, categories = []
             <div className={styles.prevPrice} style={{color:'var(--text3)'}}>stable</div>
           )}
           {product.price_all_time_low && product.current_price <= product.price_all_time_low * 1.05 && (
-            <div className={`${styles.high30} ${styles.green}`}>Near all-time low</div>
+            <div className={styles.atl}>★ Near all-time low</div>
           )}
           <span className={`${styles.badge} ${styles[cls]}`}>{label}</span>
         </div>
