@@ -19,15 +19,13 @@ function getBadge(product) {
   const ago = product.price_7d_ago
   if (status === 'drop') {
     const pct = (((ago - cur) / ago) * 100)
-    const intensity = pct >= 30 ? 'Intense' : pct >= 15 ? 'Strong' : pct >= 5 ? '' : 'Weak'
-    const alert = pct >= 30 ? ' 🔥' : ''
-    return { label: `↓ ${pct.toFixed(0)}% this week${alert}`, cls: `drop${intensity}` }
+    const emoji = pct >= 30 ? ' 🔥' : pct >= 15 ? ' 📉' : ''
+    return { label: `↓ ${pct.toFixed(0)}% this week${emoji}`, cls: 'drop' }
   }
   if (status === 'up') {
     const pct = (((cur - ago) / ago) * 100)
-    const intensity = pct >= 30 ? 'Intense' : pct >= 15 ? 'Strong' : pct >= 5 ? '' : 'Weak'
-    const alert = pct >= 30 ? ' ⚠️' : ''
-    return { label: `↑ ${pct.toFixed(0)}% this week${alert}`, cls: `up${intensity}` }
+    const emoji = pct >= 30 ? ' ⚠️' : pct >= 15 ? ' 📈' : ''
+    return { label: `↑ ${pct.toFixed(0)}% this week${emoji}`, cls: 'up' }
   }
   return { label: 'Stable', cls: 'flat' }
 }
