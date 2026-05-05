@@ -160,3 +160,15 @@
   color: var(--amber);
   font-weight: 500;
 }
+
+/* Drop intensity levels */
+.dropWeak   { background: var(--green-bg); color: var(--green); opacity: 0.6; }
+.drop       { background: var(--green-bg); color: var(--green); }
+.dropStrong { background: var(--green-bg); color: var(--green); font-weight: 700; }
+.dropIntense { background: var(--green); color: #fff; font-weight: 700; letter-spacing: 0.2px; }
+
+/* Up intensity levels */
+.upWeak   { background: var(--red-bg); color: var(--red); opacity: 0.6; }
+.up       { background: var(--red-bg); color: var(--red); }
+.upStrong { background: var(--red-bg); color: var(--red); font-weight: 700; }
+.upIntense { background: var(--red); color: #fff; font-weight: 700; letter-spacing: 0.2px; }

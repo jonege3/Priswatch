@@ -18,12 +18,16 @@ function getBadge(product) {
   const cur = product.current_price
   const ago = product.price_7d_ago
   if (status === 'drop') {
-    const pct = (((ago - cur) / ago) * 100).toFixed(0)
-    return { label: `↓ ${pct}% this week`, cls: 'drop' }
+    const pct = (((ago - cur) / ago) * 100)
+    const intensity = pct >= 30 ? 'Intense' : pct >= 15 ? 'Strong' : pct >= 5 ? '' : 'Weak'
+    const alert = pct >= 30 ? ' 🔥' : ''
+    return { label: `↓ ${pct.toFixed(0)}% this week${alert}`, cls: `drop${intensity}` }
   }
   if (status === 'up') {
-    const pct = (((cur - ago) / ago) * 100).toFixed(0)
-    return { label: `↑ ${pct}% this week`, cls: 'up' }
+    const pct = (((cur - ago) / ago) * 100)
+    const intensity = pct >= 30 ? 'Intense' : pct >= 15 ? 'Strong' : pct >= 5 ? '' : 'Weak'
+    const alert = pct >= 30 ? ' ⚠️' : ''
+    return { label: `↑ ${pct.toFixed(0)}% this week${alert}`, cls: `up${intensity}` }
   }
   return { label: 'Stable', cls: 'flat' }
 }

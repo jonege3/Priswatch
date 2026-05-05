@@ -1,7 +1,7 @@
 services:
   prisvakt:
     build: .
-    container_name: priswatch
+    container_name: prisvakt
     restart: unless-stopped
     ports:
       - "3001:3001"
