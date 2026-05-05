@@ -161,14 +161,19 @@
   font-weight: 500;
 }
 
-/* Drop intensity levels */
-.dropWeak   { background: var(--green-bg); color: var(--green); opacity: 0.6; }
-.drop       { background: var(--green-bg); color: var(--green); }
-.dropStrong { background: var(--green-bg); color: var(--green); font-weight: 700; }
-.dropIntense { background: var(--green); color: #fff; font-weight: 700; letter-spacing: 0.2px; }
 
-/* Up intensity levels */
-.upWeak   { background: var(--red-bg); color: var(--red); opacity: 0.6; }
-.up       { background: var(--red-bg); color: var(--red); }
-.upStrong { background: var(--red-bg); color: var(--red); font-weight: 700; }
-.upIntense { background: var(--red); color: #fff; font-weight: 700; letter-spacing: 0.2px; }
+
+
+
+
+
+/* ── Badge intensity scale ── */
+.dropWeak   { background: #d4edba; color: var(--green); }
+.drop       { background: #b8e090; color: var(--green); }
+.dropStrong { background: #8cc855; color: var(--green); font-weight: 600; }
+.dropIntense{ background: #60a820; color: var(--green); font-weight: 700; }
+
+.upWeak   { background: #fadadb; color: var(--red); }
+.up       { background: #f5b0b0; color: var(--red); }
+.upStrong { background: #e87878; color: var(--red); font-weight: 600; }
+.upIntense{ background: #d04040; color: var(--red); font-weight: 700; }
