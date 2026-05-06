@@ -20,12 +20,12 @@ function getBadge(product) {
   if (status === 'drop') {
     const pct = (((ago - cur) / ago) * 100)
     const emoji = pct >= 30 ? ' 🔥' : pct >= 15 ? ' 📉' : ''
-    return { label: `↓ ${pct.toFixed(0)}% this week${emoji}`, cls: 'drop' }
+    return { label: `↓ ${pct.toFixed(0)}% vs 7d ago${emoji}`, cls: 'drop' }
   }
   if (status === 'up') {
     const pct = (((cur - ago) / ago) * 100)
     const emoji = pct >= 30 ? ' ⚠️' : pct >= 15 ? ' 📈' : ''
-    return { label: `↑ ${pct.toFixed(0)}% this week${emoji}`, cls: 'up' }
+    return { label: `↑ ${pct.toFixed(0)}% vs 7d ago${emoji}`, cls: 'up' }
   }
   return { label: 'Stable', cls: 'flat' }
 }
