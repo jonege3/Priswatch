@@ -10,5 +10,5 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3001
-      - DB_PATH=/data/priswatch.db
+      - DB_PATH=/data/prisvakt.db
       - TZ=Europe/Oslo
