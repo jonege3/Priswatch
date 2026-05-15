@@ -116,7 +116,7 @@ export default function Dashboard({
                 .sort()
                 .pop()
               if (!lastScrape) return 'Personal price tracker'
-              const d = new Date(lastScrape)
+              const d = new Date(lastScrape.endsWith('Z') ? lastScrape : lastScrape + 'Z')
               return `Last scraped ${d.toLocaleDateString('nb-NO', { day: 'numeric', month: 'short' })} at ${d.toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit' })}`
             })()}
           </p>

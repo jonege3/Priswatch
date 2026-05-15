@@ -74,7 +74,7 @@ export default function ProductRow({ product, onDelete, onMoved, categories = []
       .then(rows => {
         if (!rows.length) { setHistoryError('no_data'); return }
         setAllHistory(rows.map(r => {
-          const d = new Date(r.scraped_at)
+          const d = new Date(r.scraped_at.endsWith('Z') ? r.scraped_at : r.scraped_at + 'Z')
           return {
             price:    r.price,
             shop:     r.shop,
