@@ -73,8 +73,8 @@ router.post('/', async (req, res) => {
   if (!name) { try { name = new URL(url).hostname; } catch(_) { name = url; } }
 
   const result = run(
-    'INSERT INTO products (category_id, name, url, current_price, shop, image_url, last_scraped) VALUES (?, ?, ?, ?, ?, ?, datetime("now"))',
-    [category_id, name, url.trim(), price, shop, imageUrl]
+    'INSERT INTO products (category_id, name, url, current_price, shop, image_url, last_scraped) VALUES (?, ?, ?, ?, ?, ?, ?)',
+    [category_id, name, url.trim(), price, shop, imageUrl, new Date().toISOString()]
   );
   const productId = result.lastInsertRowid;
 

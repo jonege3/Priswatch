@@ -158,7 +158,7 @@ function importPrisjaktHistory(productId, history) {
     try {
       run(
         'INSERT INTO price_history (product_id, price, shop, scraped_at) VALUES (?, ?, ?, ?)',
-        [productId, entry.price, entry.shop || 'Prisjakt (historical)', entry.date]
+        [productId, entry.price, entry.shop || 'Prisjakt (historical)', new Date(entry.date).toISOString()]
       );
       imported++;
     } catch (_) {}
@@ -176,8 +176,8 @@ async function scrapeAll() {
     const result = await scrapeProduct(product.url);
     if (result?.price) {
       run(
-        'UPDATE products SET current_price = ?, shop = ?, image_url = ?, last_scraped = datetime("now") WHERE id = ?',
-        [result.price, result.shop, result.imageUrl, product.id]
+        'UPDATE products SET current_price = ?, shop = ?, image_url = ?, last_scraped = ? WHERE id = ?',
+        [result.price, result.shop, result.imageUrl, new Date().toISOString(), product.id]
       );
       run('INSERT INTO price_history (product_id, price, shop) VALUES (?, ?, ?)',
         [product.id, result.price, result.shop]);
